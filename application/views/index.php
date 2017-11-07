@@ -10,9 +10,14 @@
 </head>
 <body>
 	<?php
-		$namefile = "WIKI_flatfile1.txt";
-		$link = base_url();
-		$link .="data/".$namefile;
+		$total = 0;
+		foreach ($mUnigram as $kata) {
+			$total+=$kata['jumlah'];
+		}
+		echo "Sumber corpus wikipedia</br>";
+		echo "</br>Jumlah kata pada korpus=".$total;
+		echo "</br>Jumlah vocab/unigram=".count($mUnigram);
+		echo "</br>Jumlah bigram=".count($mBigram)."</br>";
 	?>
 	<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 	<div class="container">
@@ -159,23 +164,22 @@
 		    		$j=0;
 		    		if($i==0){
 		    			$prob = $mBigram["START ".$kata]['prob'];
-		    			if($prob){
+		    			if(isset($prob)){
 		    				echo "START $kata(".($prob*100)."%) ";
 		    			}else{
 		    				echo "START $kata(0%) ";
 		    			}
-		    		}else if($i == $n-1){
+		    		}else if($i == $n-1 && isset($mBigram[$kata." END"]['prob'])){
 		    			$prob = $mBigram[$kata." END"]['prob'];
-		    			if($prob){
-		    				echo "$kata(".($prob*100)."%) "."END";
-		    			}else{
+		    			echo "$kata(".($prob*100)."%) "."END";
+		    		}else if($i == $n-1){
 		    				echo "$kata(0%) END";
-		    			}
 		    		}else if(strcmp($kata,"END")==0){
 		    			$i=$n;
+		    			echo "END";
 		    		}else{
 		    			$prob = $mBigram[$temp." ".$kata]['prob'];
-		    			if($prob){
+		    			if(isset($prob)){
 		    				echo "$kata(".($prob*100)."%) ";
 		    			}else{
 		    				echo "$kata(0%) ";
@@ -194,8 +198,10 @@
 					});
 					$temp = $kata;
 					$next = array_slice($data,0,1);
-		    		$kata = explode(" ",$next[0]['bigram'])[1];
-		    	}
+					if(isset($next[0])){
+		    			$kata = explode(" ",$next[0]['bigram'])[1];
+					}
+	    		}
 		    }
 		    ?>
 		  </table>
