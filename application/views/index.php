@@ -41,7 +41,7 @@
 				echo "<div>";
 				echo "Disusun oleh:<br>";
 				echo "Ahmad Zainal A 1404862<br>";
-				echo "Ibeb ????<br>";
+				echo "Febyana Ramadhanti ????<br>";
 				echo "Mira Nurhayati 1403754<br><br>";
 				echo "</div>";
 			?>
