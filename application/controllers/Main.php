@@ -342,12 +342,11 @@ class Main extends CI_Controller {
 		$namefile = "WIKI_flatfile1.txt";
 		$link = base_url();
 		$link .="data/".$namefile;
-		$n = $_POST['nGram'];
+
 		$mUnigram = $this->unigram(file_get_contents($link));
 		$mBigram = $this->bigram(file_get_contents($link),$mUnigram);
 		//$mBigram = $this->ngram(2,file_get_contents($link),$mUnigram,$link);
 
-		$nGram = $this->ngram($n,file_get_contents($link),$mUnigram,$link);
 		
 		// echo "<pre>";
 		// print_r($mBigram);
@@ -356,7 +355,7 @@ class Main extends CI_Controller {
 
 		$data1 = $mUnigram;
 		$data2 = $mBigram;
-		$data3 = $nGram;
+		
 		// echo "<pre>";
 		// print_r($data3);
 		// echo "</pre>";
@@ -369,13 +368,9 @@ class Main extends CI_Controller {
 		    return $a['jumlah'] < $b['jumlah'];
 		});
 
-		usort($nGram, function($a, $b) {
-		    return $a['jumlah'] < $b['jumlah'];
-		});
 
 		$unigram10besar = array_slice($mUnigram,0,10);
 		$bigram10besar = array_slice($mBigram,0,10);
-		$ngram10besar = array_slice($nGram,0,10);
 		// echo "<pre>";
 		// print_r($unigram10besar);
 		// echo "</pre>";
@@ -386,12 +381,31 @@ class Main extends CI_Controller {
 		$data = array(
             'mUnigram' => $data1,
             'mBigram' => $data2,
-            'nGram' => $data3,
             'unigram10besar' => $unigram10besar,
             'bigram10besar' => $bigram10besar,
-            'ngram10besar' => $ngram10besar,
         );
 
+		$post = $this->input->post();
+
+		if(isset($post['nGram'])){
+			
+			$n = $post['nGram'];
+			$nGram = $this->ngram($n,file_get_contents($link),$mUnigram,$link);
+			
+			$data3 = $nGram;
+			
+			usort($nGram, function($a, $b) {
+			    return $a['jumlah'] < $b['jumlah'];
+			});
+			
+
+			$ngram10besar = array_slice($nGram,0,10);
+
+			$data['nGram'] = $data3;
+			$data['ngram10besar'] = $ngram10besar;
+		}
+
+		
 		$this->load->view('index',$data);
 	}
 }
