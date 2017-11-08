@@ -13,18 +13,19 @@ Cara penggunaan :
 3. Gunakan apache / xampp, kemudian buka localhost/apache anda di url browser. Contoh : http://localhost/nlp_ngram/index.php
 
 
-a. Mencari tahu probabilitas suatu bigram
+a.) Mencari tahu probabilitas suatu bigram
    - Pada segmen form "Cek Probabilitas Bigram", masukkan kata pertama dan kata kedua yang ingin dicari 
      probabilitasnya, kemudian hasil yang diinginkan akan tampil pada section "Hasil" di sebelah kanan.
 
-b. Generate kalimat berdasarkan kata pertama
+b.) Generate kalimat berdasarkan kata pertama
    - Input kata pertama dan jumlah kalimat yang diinginkan pada segmen form "Generator Kalimat". Hasilnya       akan muncul di section sebelah kanan.
 
-c. Cek 10 besar n-gram : masukkan n yang diinginkan pada field di segmen form "Cek 10 Besar N-Gram"
+c.) Cek 10 besar n-gram : masukkan n yang diinginkan pada field di segmen form "Cek 10 Besar N-Gram"
 
-d. Generator Kalimat Random : klik tombol Generate, hasilnya akan dapat dilihat pada section "Hasil" di sebelah kanan.
+d.) Generator Kalimat Random : klik tombol Generate, hasilnya akan dapat dilihat pada section "Hasil" di sebelah kanan.
 
 
 Note : 
 - Tidak bisa menggunakan semua segmen form dalam sekali waktu.
 - Gunakan data yang lebih variatif dan lebih banyak untuk menyempurnakan generator kalimat.
+- Untuk cek 10 besar N-gram, data yang digunakan hanya sebagian kecil dari data yang ada di folder data, karena memakan memory yang cukup besar, ataupun akan muncul notifikasi memory limit.
